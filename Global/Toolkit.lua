@@ -130,9 +130,9 @@ _G.VP = {
     Events = {},
     Positions = {},
     LoadStrings = {
-        Dex="https://raw.githubusercontent.com/Uav3537/RobloxScripts/refs/heads/main/Global/DexExplorer",
-        IY="https://raw.githubusercontent.com/Uav3537/RobloxScripts/refs/heads/main/Global/InfiniteYield",
-        UNC="https://raw.githubusercontent.com/Uav3537/RobloxScripts/refs/heads/main/Global/UncTester"
+        Dex="https://raw.githubusercontent.com/Uav3537/RobloxScripts/refs/heads/main/Global/DexExplorer.lua",
+        IY="https://raw.githubusercontent.com/Uav3537/RobloxScripts/refs/heads/main/Global/InfiniteYield.lua",
+        UNC="https://raw.githubusercontent.com/Uav3537/RobloxScripts/refs/heads/main/Global/UncTester.lua"
     },
     Games = {
         AB={
