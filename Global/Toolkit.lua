@@ -132,7 +132,8 @@ _G.VP = {
     LoadStrings = {
         Dex="https://raw.githubusercontent.com/Uav3537/RobloxScripts/refs/heads/main/Global/DexExplorer.lua",
         IY="https://raw.githubusercontent.com/Uav3537/RobloxScripts/refs/heads/main/Global/InfiniteYield.lua",
-        UNC="https://raw.githubusercontent.com/Uav3537/RobloxScripts/refs/heads/main/Global/UncTester.lua"
+        UNC="https://raw.githubusercontent.com/Uav3537/RobloxScripts/refs/heads/main/Global/UncTester.lua",
+        TrashCan="https://raw.githubusercontent.com/yes1nt/yes/refs/heads/main/Trashcan%20Man"
     },
     Games = {
         AB={
@@ -146,7 +147,6 @@ _G.VP = {
                 NightmareBox={5433, 3352, 1883},
                 ReaperO3={34, 6420, -13},
                 ReaperO4={-1012, 6385, 76},
-                
             }
         },
         ABA={
@@ -155,6 +155,9 @@ _G.VP = {
                 Spawn={-33, -273, 273},
                 Ceiling={71, 259, -486},
             }
+        },
+        TSB={
+            Id=10449761463
         }
     },
 }
@@ -346,6 +349,40 @@ Commands["fakeout"] = {
         end
     end
 }
+
+Commands["speed"] = {
+    Description = "sets your speed",
+    Args = {
+        {Type = "number", Default = 50, Name = "Speed"}
+    },
+    Function = function(args)
+        if(_G.VP.Events.Speed) then
+            _G.VP.Events.Speed:Disconnect()
+            _G.VP.Events.Speed = nil
+        end
+        
+        local Player, PlayerGui, Character, Root = GetPlayer()
+        local Humanoid = Character:FindFirstChild("Humanoid")
+
+        if(Humanoid) then Humanoid.WalkSpeed = args[1] end
+        _G.VP.Events.Speed = Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+            if(Humanoid) then Humanoid.WalkSpeed = args[1] end
+        end)
+    end
+}
+
+Commands["unspeed"] = {
+    Description = "cancels speed",
+    Args = {
+    },
+    Function = function(args) 
+        if(_G.VP.Events.Speed) then
+            _G.VP.Events.Speed:Disconnect()
+            _G.VP.Events.Speed = nil
+        end
+    end
+}
+
 
 Commands["reset"] = {
     Description = "resets your character",
@@ -551,6 +588,17 @@ if game.PlaceId == _G.VP.Games.ABA.Id then
                 end
             end)
 
+        end
+    }
+end
+
+if game.PlaceId == _G.VP.Games.ABA.TSB then
+    Commands["trashcan"] = {
+        Description = "opens trashcan",
+        Args = {
+        },
+        Function = function(args) 
+            loadstring(game:HttpGet(_G.VP.LoadStrings.TrashCan, true))()
         end
     }
 end
