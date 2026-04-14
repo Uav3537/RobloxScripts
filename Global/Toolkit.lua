@@ -1,5 +1,6 @@
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -120,7 +121,7 @@ end
 local Screen = Instance.new("ScreenGui")
 Screen.Name = "Victory Path Exploit"
 Screen.DisplayOrder = 9999
-Screen.Parent = PlayerGui
+Screen.Parent = CoreGui or PlayerGui
 
 _G.VP = {
     Refresh = function()
@@ -318,14 +319,15 @@ Commands["fakeout"] = {
         local Player, PlayerGui, Character, Root = GetPlayer()
 
         local BeforeFrame = Root.CFrame
-        local IsStunned = Character:GetAttribute("IsStunned")
+        local IsStunned = Character:GetAttribute("IsStunned") or (Character.Data and Character.Data.Stunned and Character.Data.Stunned.Value)
         if args[2] == nil then args[2] = workspace.FallenPartsDestroyHeight + 20 end
 
         if IsStunned then
             if args[4] == nil then args[4] = 10 end
             local StunTick = 0
             TimedLoop("Fakeout", 10, function(dt, disconnect)
-                local IsStunned = Character:GetAttribute("IsStunned")
+                local IsStunned = Character:GetAttribute("IsStunned") or (Character.Data and Character.Data.Stunned and Character.Data.Stunned.Value)
+                print(IsStunned)
                 if not IsStunned then
                     StunTick = StunTick + dt
                     if StunTick >= 0.5 then
@@ -920,6 +922,6 @@ end)
 UserInputService.MouseIconEnabled = true
 
 Frames.Loading.Show()
-task.wait(3)
+task.wait(1.5)
 Frames.Loading.Hide()
 Frames.IY.Show()
