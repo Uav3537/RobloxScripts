@@ -319,14 +319,16 @@ Commands["fakeout"] = {
         local Player, PlayerGui, Character, Root = GetPlayer()
 
         local BeforeFrame = Root.CFrame
-        local IsStunned = Character:GetAttribute("IsStunned") or (Character.Data and Character.Data.Stunned and Character.Data.Stunned.Value)
+        local IsStunned = Character:GetAttribute("IsStunned") 
+            or (Character:FindFirstChild("Data") and Character.Data:FindFirstChild("Stunned") and Character.Data.Stunned.Value)
         if args[2] == nil then args[2] = workspace.FallenPartsDestroyHeight + 20 end
 
         if IsStunned then
             if args[4] == nil then args[4] = 10 end
             local StunTick = 0
             TimedLoop("Fakeout", 10, function(dt, disconnect)
-                local IsStunned = Character:GetAttribute("IsStunned") or (Character.Data and Character.Data.Stunned and Character.Data.Stunned.Value)
+                local IsStunned = Character:GetAttribute("IsStunned") 
+                    or (Character:FindFirstChild("Data") and Character.Data:FindFirstChild("Stunned") and Character.Data.Stunned.Value)
                 print(IsStunned)
                 if not IsStunned then
                     StunTick = StunTick + dt
@@ -342,7 +344,7 @@ Commands["fakeout"] = {
             end)
         else
             if args[4] == nil then args[4] = 3 end
-            TimedLoop("Fakeout", 3, function(dt, disconnect)
+            TimedLoop("Fakeout", 1.5, function(dt, disconnect)
                 local Player, PlayerGui, Character, Root = GetPlayer()
                 Root.CFrame = CFrame.new(args[1], args[2], args[3])
             end, function()
